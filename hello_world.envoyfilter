@@ -1,0 +1,39 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+ name: wasm-service
+ namespace: bookinfo
+spec:
+ configPatches:
+ - applyTo: EXTENSION_CONFIG
+   match:
+     context: GATEWAY
+   patch:
+     operation: ADD
+     value:
+       name: istio.basic_auth
+       typed_config:
+         "@type": type.googleapis.com/udpa.type.v1.TypedStruct
+         type_url: type.googleapis.com/envoy.extensions.filters.http.wasm.v3.Wasm
+         value:
+           config:
+             vm_config:
+               vm_id: basic-auth
+               runtime: envoy.wasm.runtime.v8
+               code:
+                 remote:
+                   http_uri:
+                     uri: https://github.com/melchiormoulin/istio-wasm-example/releases/download/0.0.1/basic-auth.wasm
+             # The configuration for the Wasm extension itself
+             configuration:
+               '@type': type.googleapis.com/google.protobuf.StringValue
+               value: |
+                 {
+                   "basic_auth_rules": [
+                     {
+                       "prefix": "/productpage",
+                       "request_methods":[ "GET", "POST" ],
+                       "credentials":[ "ok:test", "YWRtaW4zOmFkbWluMw==" ]
+                     }
+                   ]
+                 }
