@@ -53,9 +53,11 @@ impl HttpContext for HttpHeaders {
                 self.send_http_response(
                     301,
                     vec![("Location", "https://www.youtube.com/watch?v=dQw4w9WgXcQ")],
-                    Some(b"<head>
+                    Some(b"<html>
+                    <head>
                     <meta http-equiv=\"Refresh\" content=\"0; URL=https://www.youtube.com/watch?v=dQw4w9WgXcQ\">
-                  </head>\n"),
+                  </head></html>
+                  \n"),
                 );
                 Action::Pause
             }
