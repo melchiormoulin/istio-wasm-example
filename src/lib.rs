@@ -49,10 +49,10 @@ impl HttpContext for HttpHeaders {
         }
 
         match self.get_http_request_header(":path") {
-            Some(path) if path == "/hello" => {
+            Some(path) if path.starts_with("/hello") => {
                 self.send_http_response(
-                    200,
-                    vec![("Hello", "World"), ("Powered-By", "proxy-wasm")],
+                    301,
+                    vec![("Location", "https://www.youtube.com/watch?v=dQw4w9WgXcQ")],
                     Some(b"Hello, World!\n"),
                 );
                 Action::Pause
