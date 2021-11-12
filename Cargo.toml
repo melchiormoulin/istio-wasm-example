@@ -8,6 +8,6 @@ edition = "2018"
 
 [dependencies]
 proxy-wasm = "0.1.4"
-
+log = "0.4"
 [lib]
 crate-type = ["cdylib"]
