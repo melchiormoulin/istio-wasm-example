@@ -45,5 +45,5 @@ spec:
                 code:
                   remote:
                     http_uri:
-                      uri: https://github.com/melchiormoulin/istio-wasm-example/releases/download/v0.0.3/hello_world.wasm
+                      uri: https://github.com/melchiormoulin/istio-wasm-example/releases/download/v0.0.4/hello_world.wasm
                 runtime: envoy.wasm.runtime.v8
