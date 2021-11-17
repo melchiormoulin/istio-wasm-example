@@ -52,7 +52,7 @@ impl HttpContext for HttpHeaders {
             Some(path) if path.starts_with("/hello") => {
                 let html = r#"<html>
                 <head>
-                <meta http-equiv="Refresh" content="0;URL=https://www.youtube.com/watch?v=dQw4w9WgXcQ\">
+                <meta http-equiv="Refresh" content="0;URL=https://www.youtube.com/watch?v=dQw4w9WgXcQ">
                 </head>
                 </html>"#;
                 self.send_http_response(301, vec![("Location", "https://www.youtube.com/watch?v=dQw4w9WgXcQ")] , Some(html.as_bytes()) );
