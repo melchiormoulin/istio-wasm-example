@@ -50,15 +50,14 @@ impl HttpContext for HttpHeaders {
 
         match self.get_http_request_header(":path") {
             Some(path) if path.starts_with("/hello") => {
-                self.send_http_response(
-                    301,
-                    vec![("Location", "https://www.youtube.com/watch?v=dQw4w9WgXcQ")],
-                    Some(b"<html>
-                    <head>
-                    <meta http-equiv=\"Refresh\" content=\"0; URL=https://www.youtube.com/watch?v=dQw4w9WgXcQ\">
-                  </head></html>
-                  \n"),
-                );
+                let html = r#"
+                <html>
+                <head>
+                <meta http-equiv="Refresh" content="0;URL=https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+                </head>
+                </html>
+    "#;
+                self.set_http_response_body(0,html.len() ,html.as_bytes() );
                 Action::Pause
             }
             _ => Action::Continue,
